@@ -1,0 +1,6 @@
+{
+  "name": "ScaleShift AI",
+  "description": "ScaleShift AI builds custom websites, AI agents, AI automation, WhatsApp systems and digital solutions for growing businesses.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
