@@ -1,56 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 interface FounderPortraitProps {
   className?: string;
 }
 
 export const FounderPortrait: React.FC<FounderPortraitProps> = ({ className = '' }) => {
-  // Ordered paths to check:
-  // 1. /aryan-shah.png
-  // 2. /aryan-shah.jpg
-  // 3. /linkedln photo.png
-  // 4. /aryan-shah.svg (refined photo-faithful vector artwork)
-  const candidatePaths = [
-    '/aryan-shah.png',
-    '/aryan-shah.jpg',
-    '/linkedln photo.png',
-    '/aryan-shah.svg',
-  ];
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [src, setSrc] = useState<string>(candidatePaths[0]);
-
-  useEffect(() => {
-    // Check if user has uploaded a photo previously into localStorage
-    try {
-      const stored = localStorage.getItem('scaleshift_founder_photo');
-      if (stored && (stored.startsWith('data:image/') || stored.startsWith('/'))) {
-        setSrc(stored);
-        return;
-      }
-    } catch {
-      // ignore storage error
-    }
-  }, []);
-
-  const handleError = () => {
-    if (currentIndex < candidatePaths.length - 1) {
-      const nextIdx = currentIndex + 1;
-      setCurrentIndex(nextIdx);
-      setSrc(candidatePaths[nextIdx]);
-    }
-  };
+  const [hasError, setHasError] = useState(false);
+  const photoPath = '/aryan-shah.jpg';
 
   return (
     <div className={`relative ${className}`}>
-      <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-sm overflow-hidden border border-[#1A1A1A]/15 bg-[#2E383F] shadow-2xs relative">
-        <img
-          src={src}
-          alt="Aryan Shah - Founder of ScaleShift AI"
-          className="w-full h-full object-cover object-top"
-          referrerPolicy="no-referrer"
-          onError={handleError}
-        />
+      <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-sm overflow-hidden border border-[#1A1A1A]/15 bg-[#2C4A3E] shadow-2xs relative flex items-center justify-center">
+        {!hasError ? (
+          <img
+            src={photoPath}
+            alt="Aryan Shah - Founder of ScaleShift AI"
+            className="w-full h-full object-cover object-top"
+            referrerPolicy="no-referrer"
+            onError={() => setHasError(true)}
+          />
+        ) : (
+          <div className="w-full h-full flex flex-col items-center justify-center p-3 text-center bg-[#2C4A3E] text-white select-none">
+            <span className="serif text-2xl sm:text-3xl font-bold tracking-wider text-white">AS</span>
+            <span className="font-mono text-[9px] uppercase tracking-wider text-white/80 mt-1">Aryan Shah</span>
+          </div>
+        )}
       </div>
 
       {/* Clean identifier tag */}
@@ -61,3 +35,4 @@ export const FounderPortrait: React.FC<FounderPortraitProps> = ({ className = ''
     </div>
   );
 };
+
