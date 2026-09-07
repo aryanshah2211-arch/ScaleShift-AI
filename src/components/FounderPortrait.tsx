@@ -11,6 +11,7 @@ export const FounderPortrait: React.FC<FounderPortraitProps> = ({ className = ''
   // 3. /linkedln photo.png
   // 4. /aryan-shah.svg (refined photo-faithful vector artwork)
   const candidatePaths = [
+    '/linkedln photo.png',
     '/aryan-shah.png',
     '/aryan-shah.jpg',
     '/linkedln photo.png',
