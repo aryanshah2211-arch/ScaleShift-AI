@@ -113,19 +113,14 @@ export const LeadForm: React.FC<LeadFormProps> = ({ initialProjectType }) => {
         body: JSON.stringify(formData),
       });
 
-      let result: any = null;
-      try {
-        result = await response.json();
-      } catch {
-        // Response was not JSON
-      }
+      const result = await response.json();
 
-      if (response.ok && result?.success) {
+      if (response.ok && result.success) {
         setIsSuccess(true);
       } else {
         setServerError(
-          result?.error ||
-            'We were unable to deliver your enquiry through our email service at this moment. Please reach out to Aryan directly on WhatsApp.'
+          result.error ||
+            'We were unable to deliver your enquiry through email at this moment. Please contact Aryan directly on WhatsApp.'
         );
       }
     } catch {
